@@ -1,13 +1,5 @@
 {
   "dependencies": {
-    "com.soupday.cc3_unity_tools": {
-      "version": "file:C:/seojinhee/0905/cc_unity_tools_URP-1.5.2.URP15",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {
-        "com.unity.render-pipelines.universal": "12.0.0"
-      }
-    },
     "com.unity.burst": {
       "version": "1.8.2",
       "depth": 1,
