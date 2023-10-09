@@ -5,6 +5,8 @@ using UnityEngine.Formats.Alembic.Importer;
 
 public class AlembicPlayController : MonoBehaviour
 {
+    public bool isPlaying = false;
+
     public AlembicStreamPlayer streamPlayer;
 
     // Start is called before the first frame update
@@ -18,6 +20,14 @@ public class AlembicPlayController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        streamPlayer.CurrentTime += Time.deltaTime;
+        UpdateAlembicAnimation();
+    }
+
+    private void UpdateAlembicAnimation()
+    {
+        if(isPlaying) 
+        {
+            streamPlayer.CurrentTime += Time.deltaTime;
+        }
     }
 }
