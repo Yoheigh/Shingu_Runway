@@ -1,24 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Formats.Alembic.Importer;
+using UnityEngine.SceneManagement;
 using static Define;
 
 public class AlembicPlayController : MonoBehaviour
 {
-    public Dictionary<string, AlembicObject> alembics;
+    // 실제 생성된 오브젝트들
+    public Dictionary<int, AlembicObject> alembics = new Dictionary<int, AlembicObject>();
     private bool isPlaying = false;
 
-    public Transform topStartPos;
-    public Transform bottomStartPos;
+    public Transform RootTransform;
 
     [SerializeField]
     private AlembicStreamPlayer topStreamPlayer;
-    private MeshRenderer topMeshRenderer;
+    private AlembicObject topCurrentAlembic;
 
     [SerializeField]
     private AlembicStreamPlayer bottomStreamPlayer;
-    private MeshRenderer bottomMeshRenderer;
+    private AlembicObject bottomCurrentAlembic;
+
+    public Material sampleMat;
 
     // private variables
     private bool _init = false;
@@ -26,6 +30,9 @@ public class AlembicPlayController : MonoBehaviour
     void Start()
     {
         Init();
+
+        ChangeAlembicObject(115101);
+        ChangeAlembicObject(125102);
     }
 
     private void Init()
@@ -40,14 +47,25 @@ public class AlembicPlayController : MonoBehaviour
     void Update()
     {
         UpdateAlembicAnimation();
+
+        if (Input.GetKeyDown(KeyCode.Space)) { ChangePlayStateToggle(); }
+        if (Input.GetKeyDown(KeyCode.Alpha0)) { ChangePlayProgress(ClothesType.Both, 0f); }
+        if (Input.GetKeyDown(KeyCode.U)) { ChangeMaterial(ClothesType.Top, sampleMat); }
+        if (Input.GetKeyDown(KeyCode.P)) { ChangeAlembicObject(115103); }
+        if (Input.GetKeyDown(KeyCode.O)) { ChangeAlembicObject(115101); }
+
+
     }
 
     private void UpdateAlembicAnimation()
     {
         if (isPlaying)
         {
-            topStreamPlayer.CurrentTime += Time.deltaTime;
-            bottomStreamPlayer.CurrentTime += Time.deltaTime;
+            if (topStreamPlayer != null)
+                topStreamPlayer.CurrentTime += Time.deltaTime;
+
+            if (bottomStreamPlayer != null)
+                bottomStreamPlayer.CurrentTime += Time.deltaTime;
         }
     }
 
@@ -64,41 +82,54 @@ public class AlembicPlayController : MonoBehaviour
         isPlaying = !isPlaying;
     }
 
-    public void ChangeAlembicObject(string key)
+    public void ChangeAlembicObject(int key)
     {
-        if (alembics.TryGetValue(key, out AlembicObject alembic))
-        {
-            ChangePlayerProgress(ClothesType.Both, 0f);
+        if (alembics.TryGetValue(key, out AlembicObject alembic) == false)
+            alembic = InstantiateAlembic(key);
 
-            switch (alembic.data.type)
-            {
-                case ClothesType.Top:
+        ChangePlayProgress(ClothesType.Both, 0f);
+
+        switch (alembic.data.type)
+        {
+            case ClothesType.Top:
+                topCurrentAlembic?.Clear();
+                alembic.Init(() =>
+                {
                     topStreamPlayer = alembic.player;
-                    topMeshRenderer = alembic.renderer;
-                    break;
-                case ClothesType.Bottom:
+                    topCurrentAlembic = alembic;
+                });
+                break;
+            case ClothesType.Bottom:
+                bottomCurrentAlembic?.Clear();
+                alembic.Init(() =>
+                {
                     bottomStreamPlayer = alembic.player;
-                    bottomMeshRenderer = alembic.renderer;
-                    break;
-                case ClothesType.Both:
-                    break;
-            }
+                    bottomCurrentAlembic = alembic;
+                });
+                break;
+            case ClothesType.Both:
+                break;
         }
     }
 
-    public void ChangePlayerProgress(ClothesType type, float time)
+    public void ChangePlayProgress(ClothesType type, float time)
     {
         switch (type)
         {
             case ClothesType.Top:
-                topStreamPlayer.CurrentTime = time;
+                if (topStreamPlayer != null)
+                    topStreamPlayer.CurrentTime = time;
                 break;
             case ClothesType.Bottom:
-                bottomStreamPlayer.CurrentTime = time;
+                if (bottomStreamPlayer != null)
+                    bottomStreamPlayer.CurrentTime = time;
                 break;
             case ClothesType.Both:
-                topStreamPlayer.CurrentTime = time;
-                bottomStreamPlayer.CurrentTime = time;
+                if (topStreamPlayer != null && bottomStreamPlayer != null)
+                {
+                    topStreamPlayer.CurrentTime = time;
+                    bottomStreamPlayer.CurrentTime = time;
+                }
                 break;
         }
     }
@@ -108,14 +139,14 @@ public class AlembicPlayController : MonoBehaviour
         switch (type)
         {
             case ClothesType.Top:
-                topMeshRenderer.material = material;
+                topCurrentAlembic.ChangeMaterial(material);
                 break;
             case ClothesType.Bottom:
-                bottomMeshRenderer.material = material;
+                bottomCurrentAlembic.ChangeMaterial(material);
                 break;
             case ClothesType.Both:
-                topMeshRenderer.material = material;
-                bottomMeshRenderer.material = material;
+                topCurrentAlembic.ChangeMaterial(material);
+                bottomCurrentAlembic.ChangeMaterial(material);
                 break;
         }
     }
@@ -135,6 +166,27 @@ public class AlembicPlayController : MonoBehaviour
                 float bothReturn = topStreamPlayer.CurrentTime / topStreamPlayer.EndTime;
                 return bothReturn;
         }
+    }
+
+    public AlembicObject InstantiateAlembic(int index)
+    {
+        if (Managers.Data.GetAlembicData(index) == null)
+        {
+            Debug.Log($"{index}에 해당하는 Data가 없습니다.");
+            return null;
+        }
+
+        ChangePlayState(false);
+
+        GameObject prefab = Instantiate(Managers.Data.GetAlembicData(index).prefab, RootTransform);
+        prefab.transform.SetParent(RootTransform, false);
+        AlembicObject alembic = prefab.AddComponent<AlembicObject>();
+
+        alembic.data = Managers.Data.GetAlembicData(index);
+        alembics.Add(alembic.data.id, alembic);
+        Debug.Log($"{alembic.data.id},{alembic.data.prefab} 성공적으로 등록 완료");
+
+        return alembic;
     }
 }
 

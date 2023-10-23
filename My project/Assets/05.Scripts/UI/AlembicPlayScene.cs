@@ -59,7 +59,7 @@ public class AlembicPlayScene : MonoBehaviour
     public void OnReplayFunction()
     {
         controller.ChangePlayState(false);
-        controller.ChangePlayerProgress(ClothesType.Both, 0f);
+        controller.ChangePlayProgress(ClothesType.Both, 0f);
     }
 
     public void OnChangeAlembicFunction()
