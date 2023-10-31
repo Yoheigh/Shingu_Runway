@@ -31,8 +31,8 @@ public class AlembicPlayController : MonoBehaviour
     {
         Init();
 
-        ChangeAlembicObject(115101);
-        ChangeAlembicObject(125102);
+        ChangeAlembicObject(215113);
+        ChangeAlembicObject(225114);
     }
 
     private void Init()
@@ -80,6 +80,12 @@ public class AlembicPlayController : MonoBehaviour
     public void ChangePlayStateToggle()
     {
         isPlaying = !isPlaying;
+
+        if(topStreamPlayer.CurrentTime == topStreamPlayer.EndTime)
+        {
+            ChangePlayProgress(ClothesType.Both, 0);
+            ChangePlayState(true);
+        }
     }
 
     public void ChangeAlembicObject(int key)
