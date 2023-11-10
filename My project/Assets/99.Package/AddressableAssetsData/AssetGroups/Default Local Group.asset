@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 56f2b259457bc04448d09afc409a4693
+  m_SerializeEntries:
+  - m_GUID: a1dd98fa7b50aaa45983d529f213ab5f
+    m_Address: DatabaseSO
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 0aad3a26103719b4b81046fe0fb193d6
+    m_Address: Assets/06. Textures/Fabric_Knitted_006
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+  - m_GUID: 12180d5669bce2246b7a4b49a0a68bea
+    m_Address: 115103
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ba5eaad97f59e9542853dfa05690a94b
+    m_Address: 125102
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5f0ba734d78212840958cb63592dc85f
+    m_Address: 115101
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4c5c6d0ace694a7409de02eca4680585
+    m_Address: 215113
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4fd91a514568f1e4f9186617f3e9beeb
+    m_Address: 210107
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 89f13d3d829bd5c4a87cef517a850599
+    m_Address: 220103
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9e592db6b1c0e26449db3c5448bd9ccc, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0ac8df62006e72e4bb462150b321c953, type: 2}
+    - {fileID: 11400000, guid: 72fef7203a8bfbd42b0f4f7a2222be8a, type: 2}
