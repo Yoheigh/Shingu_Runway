@@ -6,5 +6,12 @@ using UnityEngine;
 public class AlembicDatabaseSO : ScriptableObject
 {
     public AlembicData[] alembics;
-    public Texture2D[] texture;
+    public TextureData[] textures;
+
+#if UNITY_EDITOR
+    //private void OnValidate()
+    //{
+
+    //}
+#endif
 }

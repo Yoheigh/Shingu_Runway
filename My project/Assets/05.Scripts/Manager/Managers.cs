@@ -29,9 +29,27 @@ public class Managers : MonoBehaviour
     {
         GameObject go = GameObject.Find("@Data");
         _data = go.GetComponent<DataManager>();
+
+        go = GameObject.Find("@Material");
+        _material = go.GetComponent<MaterialManager>();   
+        
+        go = GameObject.Find("@AlembicPlayer");
+        _player = go.GetComponent<AlembicPlayController>();
     }
 
     DataManager _data;
+    PoolManager _pool = new PoolManager();
+    ObjectManager _object = new ObjectManager();
+    ResourceManager _resource = new ResourceManager();
+    MaterialManager _material;
+    AlembicPlayController _player;
+    UIManager _ui = new UIManager();
 
     public static DataManager Data { get { return Instance?._data; } }
+    public static PoolManager Pool { get { return Instance?._pool; } }
+    public static ObjectManager Object { get { return Instance?._object; } }
+    public static ResourceManager Resource { get { return Instance?._resource; } }
+    public static MaterialManager Mat { get { return Instance?._material; } }
+    public static AlembicPlayController Player { get { return Instance?._player; } }
+    public static UIManager UI { get { return Instance?._ui; } }
 }

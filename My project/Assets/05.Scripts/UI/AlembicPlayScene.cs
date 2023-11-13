@@ -17,24 +17,46 @@ public class AlembicPlayScene : MonoBehaviour
 
     // 버튼
     public Button Btn_OnPlay;
+
+    public Image Image_Play;
+    public Image Image_Pause;
+
     public Button Btn_OnPause;
     public Button Btn_OnReplay;
     public Button Btn_OnChangeAlembic;
 
     public Slider Slider_OnMoveSlider;
 
-    AlembicPlayController controller;
+    AlembicPlayController Player => Managers.Player;
 
     void Start()
     {
+        Init();
+
         Btn_OnPlay.onClick.AddListener(() => { OnPlay?.Invoke(); });
         // Btn_OnPause.onClick.AddListener(() => { OnPause?.Invoke(); });
-        Btn_OnReplay.onClick.AddListener(() => { OnReplay?.Invoke(); });
-        Btn_OnChangeAlembic.onClick.AddListener(() => { OnChangeAlembic?.Invoke(); });
-        Slider_OnMoveSlider.onValueChanged.AddListener((obj) => {
-            obj = Slider_OnMoveSlider.value;
-            OnMoveSlider?.Invoke(obj);
-            });
+        // Btn_OnReplay.onClick.AddListener(() => { OnReplay?.Invoke(); });
+        // Btn_OnChangeAlembic.onClick.AddListener(() => { OnChangeAlembic?.Invoke(); });
+        //Slider_OnMoveSlider.onValueChanged.AddListener((obj) =>
+        //{
+        //    obj = Slider_OnMoveSlider.value;
+        //    OnMoveSlider?.Invoke(obj);
+        //});
+
+        if (Player.IsPlaying)
+        {
+            Image_Pause.gameObject.SetActive(false);
+            Image_Play.gameObject.SetActive(true);
+
+            Btn_OnPlay.targetGraphic = Image_Play;
+        }
+        else
+        {
+            Image_Play.gameObject.SetActive(false);
+            Image_Pause.gameObject.SetActive(true);
+
+            Btn_OnPlay.targetGraphic = Image_Pause;
+        }
     }
 
     private void Init()
@@ -48,18 +70,33 @@ public class AlembicPlayScene : MonoBehaviour
     private void Update()
     {
         // UI 설정에 따라서 변경
-        // StreamProgressParameter()
+        StreamProgressParameter();
     }
 
     public void OnPlayFunction()
     {
-        controller.ChangePlayStateToggle();
+        Player.ChangePlayStateToggle();
+
+        if (Player.IsPlaying)
+        {
+            Image_Pause.gameObject.SetActive(false);
+            Image_Play.gameObject.SetActive(true);
+
+            Btn_OnPlay.targetGraphic = Image_Play;
+        }
+        else
+        {
+            Image_Play.gameObject.SetActive(false);
+            Image_Pause.gameObject.SetActive(true);
+
+            Btn_OnPlay.targetGraphic = Image_Pause;
+        }
     }
 
     public void OnReplayFunction()
     {
-        controller.ChangePlayState(false);
-        controller.ChangePlayProgress(ClothesType.Both, 0f);
+        Player.ChangePlayState(false);
+        Player.ChangePlayProgress(ClothesType.Both, 0f);
     }
 
     public void OnChangeAlembicFunction()
@@ -70,7 +107,26 @@ public class AlembicPlayScene : MonoBehaviour
 
     public void OnMoveSliderFunction()
     {
-        controller.ChangePlayState(false);
-        controller.StreamProgressParameter(ClothesType.Both);
+        Player.ChangePlayState(false);
+        Player.ChangePlayProgress(ClothesType.Both, Slider_OnMoveSlider.value);
+
+        // 재생 시간 나타내기 위해 취소
+        // Player.StreamProgressParameter(ClothesType.Both);
+    }
+
+    public void StreamProgressParameter()
+    {
+        if (Player.CurrentStream != null)
+        {
+            Slider_OnMoveSlider.minValue = Player.CurrentStream.StartTime;
+            Slider_OnMoveSlider.maxValue = Player.CurrentStream.EndTime;
+            Slider_OnMoveSlider.value = Player.CurrentStream.CurrentTime;
+        }
+        else
+        {
+            Slider_OnMoveSlider.minValue = 0f;
+            Slider_OnMoveSlider.maxValue = 0f;
+            Slider_OnMoveSlider.value = 0f;
+        }
     }
 }
