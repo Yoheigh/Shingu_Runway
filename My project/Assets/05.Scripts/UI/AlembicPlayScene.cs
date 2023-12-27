@@ -25,6 +25,10 @@ public class AlembicPlayScene : MonoBehaviour
     public Button Btn_OnReplay;
     public Button Btn_OnChangeAlembic;
 
+    public Toggle TopToggle;
+    public Toggle BotToggle;
+    public Toggle AccToggle;
+
     public Slider Slider_OnMoveSlider;
 
     AlembicPlayController Player => Managers.Player;
@@ -35,7 +39,7 @@ public class AlembicPlayScene : MonoBehaviour
 
         Btn_OnPlay.onClick.AddListener(() => { OnPlay?.Invoke(); });
         // Btn_OnPause.onClick.AddListener(() => { OnPause?.Invoke(); });
-        // Btn_OnReplay.onClick.AddListener(() => { OnReplay?.Invoke(); });
+        Btn_OnReplay.onClick.AddListener(() => { OnReplay?.Invoke(); });
         // Btn_OnChangeAlembic.onClick.AddListener(() => { OnChangeAlembic?.Invoke(); });
         //Slider_OnMoveSlider.onValueChanged.AddListener((obj) =>
         //{
@@ -43,18 +47,18 @@ public class AlembicPlayScene : MonoBehaviour
         //    OnMoveSlider?.Invoke(obj);
         //});
 
+        Image_Pause.gameObject.SetActive(false);
+
         if (Player.IsPlaying)
         {
-            Image_Pause.gameObject.SetActive(false);
-            Image_Play.gameObject.SetActive(true);
-
+            Image_Pause.gameObject.SetActive(true);
+            Image_Play.gameObject.SetActive(false);
             Btn_OnPlay.targetGraphic = Image_Play;
         }
         else
         {
-            Image_Play.gameObject.SetActive(false);
-            Image_Pause.gameObject.SetActive(true);
-
+            Image_Pause.gameObject.SetActive(false);
+            Image_Play.gameObject.SetActive(true);
             Btn_OnPlay.targetGraphic = Image_Pause;
         }
     }
@@ -71,6 +75,8 @@ public class AlembicPlayScene : MonoBehaviour
     {
         // UI 설정에 따라서 변경
         StreamProgressParameter();
+
+        if (Input.GetKeyDown(KeyCode.B)) OnPlay?.Invoke();
     }
 
     public void OnPlayFunction()
@@ -79,16 +85,14 @@ public class AlembicPlayScene : MonoBehaviour
 
         if (Player.IsPlaying)
         {
-            Image_Pause.gameObject.SetActive(false);
-            Image_Play.gameObject.SetActive(true);
-
+            Image_Pause.gameObject.SetActive(true);
+            Image_Play.gameObject.SetActive(false);
             Btn_OnPlay.targetGraphic = Image_Play;
         }
         else
         {
-            Image_Play.gameObject.SetActive(false);
-            Image_Pause.gameObject.SetActive(true);
-
+            Image_Pause.gameObject.SetActive(false);
+            Image_Play.gameObject.SetActive(true);
             Btn_OnPlay.targetGraphic = Image_Pause;
         }
     }
@@ -97,6 +101,20 @@ public class AlembicPlayScene : MonoBehaviour
     {
         Player.ChangePlayState(false);
         Player.ChangePlayProgress(ClothesType.Both, 0f);
+        Player.ChangePlayProgress(ClothesType.Accessory, 0f);
+
+        if (Player.IsPlaying)
+        {
+            Image_Pause.gameObject.SetActive(true);
+            Image_Play.gameObject.SetActive(false);
+            Btn_OnPlay.targetGraphic = Image_Play;
+        }
+        else
+        {
+            Image_Pause.gameObject.SetActive(false);
+            Image_Play.gameObject.SetActive(true);
+            Btn_OnPlay.targetGraphic = Image_Pause;
+        }
     }
 
     public void OnChangeAlembicFunction()
@@ -122,11 +140,18 @@ public class AlembicPlayScene : MonoBehaviour
             Slider_OnMoveSlider.maxValue = Player.CurrentStream.EndTime;
             Slider_OnMoveSlider.value = Player.CurrentStream.CurrentTime;
         }
+        //else if (Player.CurrentStream.CurrentTime == Player.CurrentStream.EndTime)
+        //{
+        //    Slider_OnMoveSlider.minValue = 0f;
+        //    Slider_OnMoveSlider.maxValue = 0f;
+        //    Slider_OnMoveSlider.value = 0f;
+        //    OnPlayFunction();
+        //}
         else
         {
-            Slider_OnMoveSlider.minValue = 0f;
-            Slider_OnMoveSlider.maxValue = 0f;
-            Slider_OnMoveSlider.value = 0f;
+            Player.ChangePlayProgress(ClothesType.Both, 0f);
+            Player.ChangePlayProgress(ClothesType.Accessory, 0f);
+            OnPlayFunction();
         }
     }
 }

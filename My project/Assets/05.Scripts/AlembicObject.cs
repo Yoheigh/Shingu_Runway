@@ -19,10 +19,8 @@ public class AlembicObject : MonoBehaviour
     void Start()
     {
         Init();
-
         ChangeMaterial((int)PatternType.None);
-        gameObject.SetActive(false);
-        //mat.SetColor("_Color", Color.blue);
+        // mat.SetColor("_Color", Color.blue);
     }
 
     public void Init(Action callback = null)
@@ -40,6 +38,7 @@ public class AlembicObject : MonoBehaviour
     {
         gameObject.SetActive(false);
         ChangeMaterial((int)PatternType.None);
+        player.CurrentTime = 0f;
 
         // 풀에 집어넣거나 치우기
     }

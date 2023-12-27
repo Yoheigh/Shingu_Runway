@@ -13,23 +13,434 @@ MonoBehaviour:
   m_Name: AlembicDatabaseSO
   m_EditorClassIdentifier: 
   alembics:
-  - id: 115101
-    name: 
+  - id: 200106
+    name: SleevelessDress
     type: 0
+    sequence: 1
     description: 
     image: {fileID: 0}
-    prefab: {fileID: 7894836714110004064, guid: 57039bcb82a640c439b1f8b8a51e0c05,
-      type: 3}
-  - id: 125102
-    name: 
+    prefab: {fileID: 0}
+  - id: 210107
+    name: Blazer
     type: 1
+    sequence: 1
     description: 
     image: {fileID: 0}
-    prefab: {fileID: -6209613830834816140, guid: ba5eaad97f59e9542853dfa05690a94b,
-      type: 3}
-  - id: 115103
-    name: 
+    prefab: {fileID: 0}
+  - id: 220103
+    name: FlareSkirt
+    type: 2
+    sequence: 1
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 210112
+    name: Vest
+    type: 1
+    sequence: 1
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 120105
+    name: NonomiSkirt
+    type: 2
+    sequence: 1
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 420101
+    name: FormalPants
+    type: 2
+    sequence: 1
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 415105
+    name: NavyCoat
+    type: 1
+    sequence: 51
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 125102
+    name: LongPants
+    type: 2
+    sequence: 51
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 210108
+    name: Bustier
+    type: 1
+    sequence: 1
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 200104
+    name: Blazer
     type: 0
+    sequence: 1
     description: 
     image: {fileID: 0}
-    prefab: {fileID: 390571595655215577, guid: 12180d5669bce2246b7a4b49a0a68bea, type: 3}
+    prefab: {fileID: 0}
+  - id: 115101
+    name: Jumper
+    type: 1
+    sequence: 51
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 210111
+    name: LargeVneckSweater
+    type: 1
+    sequence: 1
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 215113
+    name: Shirt
+    type: 1
+    sequence: 51
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 125104
+    name: CargoPants
+    type: 2
+    sequence: 51
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 425104
+    name: BlackFormalPants
+    type: 2
+    sequence: 51
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 115103
+    name: LongTShirt
+    type: 1
+    sequence: 51
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 410102
+    name: BrownCoat
+    type: 1
+    sequence: 1
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 400306
+    name: JeanDress
+    type: 0
+    sequence: 3
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  - id: 415103
+    name: BlackTurtleneck
+    type: 1
+    sequence: 51
+    description: 
+    image: {fileID: 0}
+    prefab: {fileID: 0}
+  textures:
+  - id: 0
+    name: None
+    material: {fileID: 2100000, guid: 059acccfc057c1741988feafb233070c, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.059
+    HeightValue: 0.2
+  - id: 1
+    name: CottonBlack
+    material: {fileID: 2100000, guid: b11126f4ece35bc4db0778479a23afdb, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 2
+    name: Fabric034
+    material: {fileID: 2100000, guid: 76bb103106d61e04cae54c6668cca0a0, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.05
+    HeightValue: 0.1
+  - id: 3
+    name: Fabric035
+    material: {fileID: 2100000, guid: b299c42aa06da1040a9f146f33dee57a, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.05
+    HeightValue: 0.1
+  - id: 4
+    name: FabricCamo003
+    material: {fileID: 2100000, guid: 4dd13e1636b9eda4288a8f66b12ba635, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0
+    HeightValue: 0.1
+  - id: 5
+    name: FabricNonwoven001
+    material: {fileID: 2100000, guid: 5d827574c10acb943a06dbcc2b2a51e0, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.05
+    HeightValue: 0.1
+  - id: 6
+    name: FabricPolyester002
+    material: {fileID: 2100000, guid: 67c5369c30331404db78f3cc3f96b20e, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.05
+    HeightValue: 0.1
+  - id: 7
+    name: FabricSilk001
+    material: {fileID: 2100000, guid: f6892714291cbaf4b93ad59b819fa4eb, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.05
+    HeightValue: 0.1
+  - id: 8
+    name: FabricTarp002
+    material: {fileID: 2100000, guid: cedb43acb043666438c38ba106d00822, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.05
+    HeightValue: 0.1
+  - id: 9
+    name: Knitted006
+    material: {fileID: 2100000, guid: 5c1f67d20bfe28844a8098b33f8c27aa, type: 2}
+    main: {fileID: 2800000, guid: 61c6d1c4024eb4449ab24fc9770a1170, type: 3}
+    normal: {fileID: 2800000, guid: ddcedf60d7dc33544860f8da068915e3, type: 3}
+    roughness: {fileID: 2800000, guid: 7fec1cc689ac44d429493867249192c2, type: 3}
+    height: {fileID: 2800000, guid: ee962bceea4263a40b02a9c50ade19d2, type: 3}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 2800000, guid: e0876fa30b7cf9942822db495a7996e9, type: 3}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 10
+    name: Denim001
+    material: {fileID: 2100000, guid: f7987223b59efc3488bc89ea1d6a8429, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 11
+    name: Denim002
+    material: {fileID: 2100000, guid: 64acbaf891f0d9b4e80cdcee39ceecbc, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 12
+    name: Denim003
+    material: {fileID: 2100000, guid: 47397c8fe27204f419f8f67d83489d2f, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 13
+    name: Denim004
+    material: {fileID: 2100000, guid: bf8da222dedb1fa4c8e2ebadd3e1d354, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 14
+    name: Felt001
+    material: {fileID: 2100000, guid: e640f0baf1eb87548b0453e14137f3d0, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 15
+    name: Felt002
+    material: {fileID: 2100000, guid: 5dd9c1ecbf4595f459e93d91ec771ab6, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 16
+    name: Leather001
+    material: {fileID: 2100000, guid: 670e867ca87ec4648a60a5c4ca99ff3d, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 17
+    name: Leather002
+    material: {fileID: 2100000, guid: 589de6d4ccec7e7419dde5e9e234de9e, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 18
+    name: Leather003
+    material: {fileID: 2100000, guid: 6871ac57617527b428c8cec798436f15, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 19
+    name: Leather004
+    material: {fileID: 2100000, guid: a70209f75a0f2b347b5b9217c1de51c7, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 20
+    name: Madras001
+    material: {fileID: 2100000, guid: 00c28db27571a7740a84c945a966ea0c, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 21
+    name: MIcrofiber001
+    material: {fileID: 2100000, guid: 046db50dd99ec2641a911ab2363e143c, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 22
+    name: Moleskin001
+    material: {fileID: 2100000, guid: eb83596e97f21f9439f17b498470e93f, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 23
+    name: Oxford001
+    material: {fileID: 2100000, guid: df02006d083df9c4ca58d999a19db514, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 24
+    name: Oxford002
+    material: {fileID: 2100000, guid: 9eac361cfd63a5f45857dda21b6b0716, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 25
+    name: Oxford003
+    material: {fileID: 2100000, guid: ff8ca1e255325ab4a92e9ff24577bf83, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2
+  - id: 26
+    name: Oxford004
+    material: {fileID: 2100000, guid: 0a499f9e700e91847b0a9cd38ffbcab3, type: 2}
+    main: {fileID: 0}
+    normal: {fileID: 0}
+    roughness: {fileID: 0}
+    height: {fileID: 0}
+    opacity: {fileID: 0}
+    occlusion: {fileID: 0}
+    smoothnessValue: 0.1
+    HeightValue: 0.2

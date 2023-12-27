@@ -12,7 +12,7 @@ public class AlembicPlayController : MonoBehaviour
     // 실제 생성된 오브젝트들
     public Dictionary<int, AlembicObject> alembics = new Dictionary<int, AlembicObject>();
 
-    public bool IsPlaying { get; private set; }
+    public bool IsPlaying { get { return isPlaying; } private set { } }
     private bool isPlaying = false;
 
     public Transform RootTransform;
@@ -21,10 +21,12 @@ public class AlembicPlayController : MonoBehaviour
     {
         get
         {
-            if (topStreamPlayer != null)
+            if (topStreamPlayer != null && topStreamPlayer.CurrentTime != topStreamPlayer.EndTime)
                 return topStreamPlayer;
-            else if (bottomStreamPlayer != null)
+            else if (bottomStreamPlayer != null && bottomStreamPlayer.CurrentTime != bottomStreamPlayer.EndTime)
                 return bottomStreamPlayer;
+            else if (AccessoryStreamPlayer != null && AccessoryStreamPlayer.CurrentTime != AccessoryStreamPlayer.EndTime)
+                return AccessoryStreamPlayer;
             else
                 return null;
         }
@@ -71,51 +73,21 @@ public class AlembicPlayController : MonoBehaviour
         UpdateAlembicAnimation();
 
         if (Input.GetKeyDown(KeyCode.Space)) { ChangePlayStateToggle(); }
-        if (Input.GetKeyDown(KeyCode.Alpha0)) { ChangePlayProgress(ClothesType.Both, 0f); }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            RootTransform.position = new Vector3(-2.0f, RootTransform.position.y, RootTransform.position.z);
-            ChangeAlembicObject(210108);
-            ChangeAlembicObject(120105);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            RootTransform.position = new Vector3(-2.0f, RootTransform.position.y, RootTransform.position.z);
-            ChangeAlembicObject(410102);
-            ChangeAlembicObject(420101);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            RootTransform.position = new Vector3(-1.7f, RootTransform.position.y, RootTransform.position.z);
-            ChangeAlembicObject(415103);
-            ChangeAlembicObject(425104);
-            // ChangeAlembicObject(415105);    // 파일 인덱스는 425105로 되어있어서 다시 임포트해야함
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            RootTransform.position = new Vector3(-1.7f, RootTransform.position.y, RootTransform.position.z);
-            ChangeAlembicObject(400306);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            RootTransform.position = new Vector3(-1.7f, RootTransform.position.y, RootTransform.position.z);
-            ChangeAlembicObject(125104);
-            ChangeAlembicObject(115103);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            RootTransform.position = new Vector3(-2.0f, RootTransform.position.y, RootTransform.position.z);
-            ChangeAlembicObject(210107);
-            ChangeAlembicObject(220101);
-        }
+        if (Input.GetKeyDown(KeyCode.Minus)) { ChangePlayProgress(ClothesType.Both, 0f); ChangePlayProgress(ClothesType.Accessory, 0f); }
 
         int temp = UnityEngine.Random.Range(0, 3);
         int gacha = UnityEngine.Random.Range(0, 10);
 
-        if (Input.GetKeyDown(KeyCode.Keypad3))
-            ChangeMaterial(ClothesType.Both, PatternType.FabricNonwoven001);
-
+        if (Input.GetKeyDown(KeyCode.Alpha1)) Set01();
+        if (Input.GetKeyDown(KeyCode.Alpha2)) Set02();
+        if (Input.GetKeyDown(KeyCode.Alpha3)) Set03();
+        if (Input.GetKeyDown(KeyCode.Alpha4)) Set04();
+        if (Input.GetKeyDown(KeyCode.Alpha5)) Set05();
+        if (Input.GetKeyDown(KeyCode.Alpha6)) Set06();
+        if (Input.GetKeyDown(KeyCode.Alpha7)) Set07();
+        if (Input.GetKeyDown(KeyCode.Alpha8)) Set08();
+        if (Input.GetKeyDown(KeyCode.Alpha9)) Set09();
+        if (Input.GetKeyDown(KeyCode.Alpha0)) Set09();
 
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
@@ -135,7 +107,14 @@ public class AlembicPlayController : MonoBehaviour
                            (PatternType)Enum.GetValues(typeof(PatternType)).GetValue(gacha));
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha9)) { ChangePlayProgress(ClothesType.Both, 1f); }
+
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+            ChangeMaterial(ClothesType.Both, (PatternType)Enum.GetValues(typeof(PatternType)).GetValue(gacha));
+            ChangeMaterial(ClothesType.Accessory, (PatternType)Enum.GetValues(typeof(PatternType)).GetValue(gacha));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Plus)) { ChangePlayProgress(ClothesType.Both, 0.5f); ChangePlayProgress(ClothesType.Accessory, 0.5f); }
 
     }
 
@@ -233,22 +212,34 @@ public class AlembicPlayController : MonoBehaviour
 
     public void CheckSequenceDifferent(AlembicData data)
     {
-        if(topCurrentAlembic != null)
+        if (topCurrentAlembic != null)
         {
             if (topCurrentAlembic.data.sequence != data.sequence)
+            {
                 topCurrentAlembic.Clear();
+                topCurrentAlembic = null;
+                topStreamPlayer = null;
+            }
         }
 
         if (bottomCurrentAlembic != null)
         {
             if (bottomCurrentAlembic?.data.sequence != data.sequence)
+            {
                 bottomCurrentAlembic.Clear();
+                bottomCurrentAlembic = null;
+                bottomStreamPlayer = null;
+            }
         }
 
         if (AccessoryCurrentAlembic != null)
         {
-            if (AccessoryCurrentAlembic?.data.sequence != data.sequence)
+            //if (AccessoryCurrentAlembic?.data.sequence != data.sequence)
+            //{
                 AccessoryCurrentAlembic.Clear();
+                AccessoryCurrentAlembic = null;
+                AccessoryStreamPlayer = null;
+            //}
         }
     }
 
@@ -257,25 +248,27 @@ public class AlembicPlayController : MonoBehaviour
         switch (type)
         {
             case ClothesType.Top:
-                if (topStreamPlayer != null)
+                if (topCurrentAlembic != null)
                     topStreamPlayer.CurrentTime = time;
                 break;
+
             case ClothesType.Bottom:
-                if (bottomStreamPlayer != null)
+                if (bottomCurrentAlembic != null)
                     bottomStreamPlayer.CurrentTime = time;
                 break;
+
             case ClothesType.Both:
-                if (topStreamPlayer != null)
+                if (topCurrentAlembic != null)
                     topStreamPlayer.CurrentTime = time;
 
-                if (bottomStreamPlayer != null)
+                if (bottomCurrentAlembic != null)
                     bottomStreamPlayer.CurrentTime = time;
                 break;
+
             case ClothesType.Accessory:
-                if (AccessoryStreamPlayer != null)
+                if (AccessoryCurrentAlembic != null)
                     AccessoryStreamPlayer.CurrentTime = time;
                 break;
-
         }
     }
 
@@ -291,7 +284,7 @@ public class AlembicPlayController : MonoBehaviour
                 break;
             case ClothesType.Both:
                 topCurrentAlembic.ChangeMaterial(pattern);
-                bottomCurrentAlembic.ChangeMaterial(pattern);
+                // bottomCurrentAlembic.ChangeMaterial(pattern);
                 break;
             case ClothesType.Accessory:
                 AccessoryCurrentAlembic.ChangeMaterial(pattern);
@@ -339,6 +332,87 @@ public class AlembicPlayController : MonoBehaviour
         audioSource.Play();
 
         Invoke("PlayRandomMusic", audioSource.clip.length);
+    }
+
+    public void Set01()
+    {
+        RootTransform.position = new Vector3(-2.0f, RootTransform.position.y, RootTransform.position.z);
+        ChangeAlembicObject(210108);
+        ChangeAlembicObject(120105);
+    }
+
+    public void Set02()
+    {
+
+        RootTransform.position = new Vector3(-2.0f, RootTransform.position.y, RootTransform.position.z);
+        ChangeAlembicObject(210107);
+        ChangeAlembicObject(420101);
+    }
+
+    public void Set03()
+    {
+        RootTransform.position = new Vector3(-1.7f, RootTransform.position.y, RootTransform.position.z);
+        ChangeAlembicObject(415103);
+        ChangeAlembicObject(225114);
+        // ChangeAlembicObject(415105);    // 파일 인덱스는 425105로 되어있어서 다시 임포트해야함
+    }
+
+    public void Set04()
+    {
+
+        RootTransform.position = new Vector3(-1.7f, RootTransform.position.y, RootTransform.position.z);
+        ChangeAlembicObject(400306);
+    }
+
+    public void Set05()
+    {
+        RootTransform.position = new Vector3(-1.7f, RootTransform.position.y, RootTransform.position.z);
+        ChangeAlembicObject(125104);
+        ChangeAlembicObject(115103);
+    }
+
+    public void Set06()
+    {
+        RootTransform.position = new Vector3(-2.0f, RootTransform.position.y, RootTransform.position.z);
+        ChangeAlembicObject(210107);
+        ChangeAlembicObject(220101);
+    }
+
+    public void Set07()
+    {
+        RootTransform.position = new Vector3(-1.7f, RootTransform.position.y, RootTransform.position.z);
+
+        ChangeAlembicObject(415105);
+        ChangeAlembicObject(425104);
+
+        // 액세서리는 맨 마지막에 덮어씌우는 식으로만 작동함
+        // 옷을 바꾸면 액세서리 바로 사라짐. 나중에 바꾸면 바꿔야 함
+        ChangeAlembicObject(235118);
+    }
+
+    public void Set08()
+    {
+        RootTransform.position = new Vector3(-2.0f, RootTransform.position.y, RootTransform.position.z);
+
+        ChangeAlembicObject(200104);
+    }
+
+    public void Set09()
+    {
+        RootTransform.position = new Vector3(-2.0f, RootTransform.position.y, RootTransform.position.z);
+
+        ChangeAlembicObject(210112);
+        ChangeAlembicObject(220101);
+    }
+
+    public void Set10()
+    {
+        RootTransform.position = new Vector3(-1.7f, RootTransform.position.y, RootTransform.position.z);
+
+        ChangeAlembicObject(225114);
+        ChangeAlembicObject(215115);
+
+        
     }
 }
 
@@ -388,17 +462,32 @@ public class Define
 
     public enum PatternType
     {
-        None = 0, // knit002
-        Knit006 = 1,
+        None = 0, // Cotton_mat(CottonWhite)
+        CottonBlack = 1,
         Fabric034 = 2,
         Fabric035 = 3,
-        FabricCamo003 = 4,
+        // FabricCamo003 = 4, // 현역병 의상 뭐냐 이거
         FabricNonwoven001 = 5,
         FabricPolyester002 = 6,
         FabricSilk001 = 7,
         FabricTarp002 = 8,
-        Fabric020 = 31231249, // 이거 군대 카모임...
-        MetalGrill007 = 10,
+        Knitted006 = 9,
+        Denim001 = 10,
+        Denim002 = 11,
+        Denim003 = 12,
+        Denim004 = 13,
+        Felt001 = 14,
+        Felt002 = 15,
+        Leather001 = 16,
+        Leather002 = 17,
+        Leather003 = 18,
+        Leather004 = 19,
+        Masdras001 = 20,
+        MIcrofiber001 = 21,
+        Moleskin001 = 22,
+        Oxford001 = 23,
+        Oxford002 = 24,
+        Oxford003 = 25,
+        Oxford004 = 26,
     }
-
 }

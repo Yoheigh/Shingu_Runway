@@ -25,7 +25,7 @@ public class DataManager : MonoBehaviour
             {
                 Debug.Log("¾À ·Îµå ¿Ï¤©·á!");
                 LoadAllAlembicData();
-                Managers.Player.ChangeAlembicObject(115103);
+                Managers.Player.Set01();
             };
         }
     }
