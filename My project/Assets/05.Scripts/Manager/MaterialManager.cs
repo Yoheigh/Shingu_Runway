@@ -13,6 +13,7 @@ public class MaterialManager : MonoBehaviour
 
     public Material GetMaterial(int _id)
     {
+        // 이미 가지고 있는 material일 경우
         if(savedMaterial.ContainsKey(_id))
         {
             return savedMaterial[_id];
@@ -29,8 +30,10 @@ public class MaterialManager : MonoBehaviour
             return savedMaterial[0];
         }
 
+        // 미리 데이터에 만들어 등록시켜 놓은 material이 있을 경우
         if(textureData.material != null)
         {
+            // 해당 material을 베이스로 새로 생성
             material = new Material(textureData.material);
             savedMaterial.Add(_id, material);
 
